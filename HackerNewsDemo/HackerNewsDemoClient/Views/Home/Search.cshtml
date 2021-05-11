@@ -1,0 +1,72 @@
+﻿@model HackerNewsDemoClient.Models.HomeViewModel
+
+@{
+    ViewData["Title"] = "Search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="text-center">
+    <h1 class="display-4">New Stories</h1>
+</div>
+
+    @if (string.IsNullOrEmpty(Model.SearchTerms))
+    {
+        <div class="col-sm-12 text-center">
+            <form asp-action="Search" asp-controller="Home" method="get">
+                <div class="form-group">
+                    <input id="searchTerms" name="searchTerms" type="text" class="form-control" placeholder="Enter keywords to search for separated by space" />
+                </div>
+                <button class="btn btn-block bg-dark-orange" type="submit">Search</button>
+            </form>
+        </div>
+    }
+    else
+    {
+        <div class="card p-2" id="hackerNewItemsSection">
+            <div class="card-header">
+                <p>Results for: @Model.SearchTerms</p>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        @if (Model.HackerNewsItems.Count > 0)
+                        {
+                            @foreach (var item in Model.HackerNewsItems.OrderByDescending(x => x.Time).ToList())
+                            {
+                                @if (!string.IsNullOrEmpty(item.Url))
+                                {
+                                    <tr id="@item.Id">
+                                        <td>
+                                            <a href="@item.Url" target="_self">@item.Title</a>
+                                            <br />
+                                            <small class="text-muted">@item.Score point by @item.By</small>
+                                        </td>
+                                    </tr>
+                                }
+
+                            }
+
+                            <tr class="bg-light-orange">
+                                <td>@Html.ActionLink("View More", "Search", "Home", new { searchTerms = Model.SearchTerms, pageNumber = Model.CurrentPage + 1 }, new { id = "moreLink" })</td>
+                            </tr>
+                            <tr class="bg-light">
+                                <td>@Html.ActionLink("New Search", "Search", "Home", new { searchTerms = string.Empty }, new { id = "searchAgain" })</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr>
+                                <td>No Records Found</td>
+                            </tr>
+
+                            <tr class="bg-light">
+                                <td>@Html.ActionLink("New Search", "Search", "Home", new { searchTerms = string.Empty }, new { id = "searchAgain" })</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    }
+
