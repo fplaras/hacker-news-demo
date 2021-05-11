@@ -38,5 +38,5 @@ Concurrency conflicts with db inserts in the retrieval of items while the backgr
 Potentially I might be leading to a different strategy like inMemoryCaching or Redis.
 
 ## What's next?
-Continue exploring backend strategies, creating different clients using JS libraries and Blazor. 
+Continue exploring backend strategies for caching and performance, creating different clients using JS libraries and Blazor, better exception handling.
 
