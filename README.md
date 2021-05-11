@@ -2,9 +2,10 @@
 
 ## Getting Started
 1. Install Dotnetcore 5.0 https://dotnet.microsoft.com/download
-2. Start API
-3. Verify localhost port numbers for the API and update the url on the client
-4. Start both API and Client projects
+2. For IDE I used Visual Studio 2019 Community Edition but I think VS code might work aslo
+3. Start API
+4. Verify localhost port numbers for the API and update the url on the client appsettings.json file
+5. Start both API and Client projects
 
 ## Overview
 This project is developed in Dotnetcore 5.0. The solution contains in addition to service project a client and an API application.
