@@ -31,7 +31,7 @@ The current unit test demonstrates testing of some service methods and can be ex
 Client is currently developed as a server side app using ASP.Net Core. There are many JS libraries to handle paging, sorting, filtering and searching but I implemented an API based search to provide records that were not original retrieved in the original newstories request.  
 
 ## Findings
-I am new to the Hacker News API but I found that the updates to a Title in an item do not reflect in the endpoint in the API for updates so I believe the updates endpoint might be cached also. The code originally used that endpoint to simply update those records at a 30second interval but considering it is not reflecting updates as expected currently all records for a story type are updates every 30 seconds. Not what I would like but it works.
+I am new to the Hacker News API but I found that the updates to a Title in an item do not reflect in the endpoint in the API for updates so I believe the "updates" endpoint might be also be cached. The application code originally used that endpoint to simply update those records at a 30 second interval but considering it is not working as expected  all records for a "newstories" are currently updated every 30 seconds. Hey it works.
 
 ### Issues
 Concurrency conflicts with db inserts in the retrieval of items while the background service is running. I found some strategies in EF to handle this but need further R&D.
