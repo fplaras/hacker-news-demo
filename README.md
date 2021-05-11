@@ -1,5 +1,11 @@
 # Demo Application using Hacker News API
 
+## Getting Started
+1. Install Dotnetcore 5.0 https://dotnet.microsoft.com/download
+2. Start API
+3. Verify localhost port numbers for the API and update the url on the client
+4. Start both API and Client projects
+
 ## Overview
 This project is developed in Dotnetcore 5.0. The solution contains in addition to service project a client and an API application.
 
