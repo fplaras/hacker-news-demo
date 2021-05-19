@@ -157,7 +157,7 @@ namespace HackerNewsDemo.Module.Services
                 List<HackerNewsItemDomain> filteredItemTitles =
                     await _context.HackerNewsItem.Where(x => x.Title != null).ToListAsync();
 
-                var filteredItemsTitlesResults = filteredItemTitles.Where(x => keyword.Any(term => x.Title.Contains(term))).ToList();
+                var filteredItemsTitlesResults = filteredItemTitles.Where(x => keyword.Any(term => x.Title.Contains(term, StringComparison.InvariantCultureIgnoreCase))).ToList();
 
                 foreach (var item in filteredItemsTextResults)
                 {
