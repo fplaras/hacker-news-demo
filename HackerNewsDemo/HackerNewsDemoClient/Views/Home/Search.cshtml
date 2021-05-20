@@ -6,17 +6,19 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">New Stories</h1>
+    <h1 class="display-4">Search New Stories</h1>
 </div>
 
     @if (string.IsNullOrEmpty(Model.SearchTerms))
     {
         <div class="col-sm-12 text-center">
             <form asp-action="Search" asp-controller="Home" method="get">
-                <div class="form-group">
+                <div class="form-group mb-2">
                     <input id="searchTerms" name="searchTerms" type="text" class="form-control" placeholder="Enter keywords to search for separated by space" />
                 </div>
-                <button class="btn btn-block bg-dark-orange" type="submit">Search</button>
+                <div class="d-grid col-12 mx-auto">
+                    <button class="btn btn-primary rounded" type="submit">Search</button>
+                </div>
             </form>
         </div>
     }
@@ -45,12 +47,13 @@
                                 }
 
                             }
-
-                            <tr class="bg-light-orange">
-                                <td>@Html.ActionLink("View More", "Search", "Home", new { searchTerms = Model.SearchTerms, pageNumber = Model.CurrentPage + 1 }, new { id = "moreLink" })</td>
+                            <tr class="bg-secondary">
+                                <td class="d-grid gap-2 col-12 mx-auto">
+                                    @Html.ActionLink("View More Search Results", "Search", "Home", new { searchTerms = Model.SearchTerms, pageNumber = Model.CurrentPage + 1 }, new { @id = "moreLink", @class = "btn btn-primary rounded" })
+                                </td>
                             </tr>
-                            <tr class="bg-light">
-                                <td>@Html.ActionLink("New Search", "Search", "Home", new { searchTerms = string.Empty }, new { id = "searchAgain" })</td>
+                            <tr class="">
+                                <td>@Html.ActionLink("New Search", "Search", "Home", new { searchTerms = string.Empty }, new { @id = "searchAgain", @class="btn btn-success" })</td>
                             </tr>
                         }
                         else
@@ -59,8 +62,8 @@
                                 <td>No Records Found</td>
                             </tr>
 
-                            <tr class="bg-light">
-                                <td>@Html.ActionLink("New Search", "Search", "Home", new { searchTerms = string.Empty }, new { id = "searchAgain" })</td>
+                            <tr class="">
+                                <td>@Html.ActionLink("New Search", "Search", "Home", new { searchTerms = string.Empty }, new { @id = "searchAgain", @class = "btn btn-success" })</td>
                             </tr>
                         }
                     </tbody>

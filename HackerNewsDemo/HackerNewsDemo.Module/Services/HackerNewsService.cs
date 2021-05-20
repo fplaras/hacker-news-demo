@@ -58,7 +58,7 @@ namespace HackerNewsDemo.Module.Services
                         if(item != null)
                         {
                             var newItem = _mapper.Map<HackerNewsItemDomain>(item);
-                            await _context.HackerNewsItem.AddAsync(newItem);
+                            //await _context.HackerNewsItem.AddAsync(newItem);
                             itemList.Add(newItem);
                         }
                     }
@@ -68,7 +68,7 @@ namespace HackerNewsDemo.Module.Services
                     }
                 }
 
-                await _context.SaveChangesAsync();
+                //await _context.SaveChangesAsync();
 
                 return itemList;
             }
@@ -208,6 +208,12 @@ namespace HackerNewsDemo.Module.Services
                     domainItem.Parts = item.Parts;
 
                     _context.HackerNewsItem.Update(domainItem);
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    //add item to domain
+                    _context.AddAsync(item);
                     _context.SaveChanges();
                 }
             }

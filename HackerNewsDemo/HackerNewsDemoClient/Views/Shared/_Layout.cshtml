@@ -1,48 +1,79 @@
-﻿<!DOCTYPE html>
+﻿@{ 
+    string action = ViewContext.RouteData.Values["Action"].ToString();
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - HackerNewsDemoClient</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
+    @*<link rel="stylesheet" href="~/css/site.css" />*@
+    <link href="~/bootswatch/cosmo/bootstrap.min.css" rel="stylesheet" />
     <link href="~/css/hackernews.css" rel="stylesheet" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark border-bottom box-shadow mb-3 bg-dark-orange">
-            <div class="container">
-                <a class="navbar-brand text-black-50" asp-area="" asp-controller="Home" asp-action="Index">Hacker News Demo</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+        @*<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark border-bottom box-shadow mb-3 bg-dark-orange">
+                <div class="container">
+                    <a class="navbar-brand text-black-50" asp-area="" asp-controller="Home" asp-action="Index">Hacker News Demo</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">New Stories</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Search">Search New Stories</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>*@
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container-fluid">
+                <a class="navbar-brand"  asp-controller="Home" asp-action="Index">Hacker News Demo</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">New Stories</a>
+                            <a class="nav-link @(action == "Index" ? "active" :"")" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Search">Search New Stories</a>
+                            <a class="nav-link @(action == "NewStories" ? "active" :"")" asp-controller="Home" asp-action="NewStories">New</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @(action == "TopStories" ? "active" :"")" asp-controller="Home" asp-action="TopStories">Top</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @(action == "BestStories" ? "active" :"")" asp-controller="Home" asp-action="BestStories">Best</a>
                         </li>
                     </ul>
+                    
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+    <div class="container py-5">
+        @RenderBody()
     </div>
 
-    <footer class="border-top footer text-muted">
+    <!-- Footer-->
+    <footer class="py-5 bg-secondary">
         <div class="container">
-            &copy; 2021 - HackerNewsDemoClient - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <p class="m-0 text-center text-white">
+                2021 - HackerNewsDemoClient
+            </p>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="~/twitter-bootstrap/js/bootstrap.bundle.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
