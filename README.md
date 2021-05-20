@@ -1,5 +1,8 @@
 # Demo Application using Hacker News API
 
+## Development Branch
+This branch is used for active development and will change frequently. 
+
 ## Getting Started
 1. Install Dotnetcore 5.0 https://dotnet.microsoft.com/download
 2. For IDE I used Visual Studio 2019 Community Edition but I think VS code might work aslo
