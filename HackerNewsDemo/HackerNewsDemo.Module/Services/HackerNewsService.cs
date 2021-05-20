@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace HackerNewsDemo.Module.Services
@@ -157,7 +158,7 @@ namespace HackerNewsDemo.Module.Services
                 List<HackerNewsItemDomain> filteredItemTitles =
                     await _context.HackerNewsItem.Where(x => x.Title != null).ToListAsync();
 
-                var filteredItemsTitlesResults = filteredItemTitles.Where(x => keyword.Any(term => x.Title.Contains(term, StringComparison.InvariantCultureIgnoreCase))).ToList();
+                var filteredItemsTitlesResults = filteredItemTitles.Where(x => keyword.Any(term => x.Title.Contains(term, StringComparison.CurrentCultureIgnoreCase))).ToList();
 
                 foreach (var item in filteredItemsTextResults)
                 {
@@ -184,6 +185,64 @@ namespace HackerNewsDemo.Module.Services
                 throw new HttpResponseException(HttpStatusCode.InternalServerError, msg);
             }
             
+        }
+
+        public async Task<List<HackerNewsItemDomain>> SearchExactWordsHackerNewsItems(string searchTerms)
+        {
+            try
+            {
+                List<string> keyword = searchTerms.Split(" ").ToList();
+
+                List<HackerNewsItemDomain> filteredItems = new List<HackerNewsItemDomain>();
+
+                List<HackerNewsItemDomain> filteredItemsText =
+                    await _context.HackerNewsItem.Where(x => x.Text != null).ToListAsync();
+
+                var filteredItemsTextResults = filteredItemsText.Where(x => keyword.Any(term => x.Text.Contains(term, StringComparison.OrdinalIgnoreCase))).ToList();
+
+                List<HackerNewsItemDomain> filteredItemTitles =
+                    await _context.HackerNewsItem.Where(x => x.Title != null).ToListAsync();
+
+                var filteredItemsTitlesResults = filteredItemTitles.Where(x => keyword.Any(term => x.Title.Contains(term, StringComparison.OrdinalIgnoreCase))).ToList();
+
+                foreach (var item in filteredItemsTextResults)
+                {
+                    foreach (var key in keyword)
+                    {
+                        if (Regex.IsMatch(item.Text, "/\b" + key + "\b/g"))
+                        {
+                            if (filteredItems.FirstOrDefault(x => x.Id == item.Id) == null)
+                            {
+                                filteredItems.Add(item);
+                            }
+                        }
+                    }
+                }
+
+                foreach (var item in filteredItemsTitlesResults)
+                {
+                    foreach (var key in keyword)
+                    {
+                        if (Regex.IsMatch(item.Title, @"\b(?i:" + key + @")\b"))
+                        {
+                            if (filteredItems.FirstOrDefault(x => x.Id == item.Id) == null)
+                            {
+                                filteredItems.Add(item);
+                            }
+                        }
+                    }
+
+                }
+
+                return filteredItems;
+            }
+            catch (Exception ex)
+            {
+
+                string msg = String.Format("Critical Error: {0} InnerException: {1}", ex.Message, ex.InnerException.Message);
+                throw new HttpResponseException(HttpStatusCode.InternalServerError, msg);
+            }
+
         }
 
         public void UpdateItemsBackgroundService()
