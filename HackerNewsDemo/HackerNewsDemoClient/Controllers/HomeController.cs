@@ -22,18 +22,10 @@ namespace HackerNewsDemoClient.Controllers
             _client = client;
         }
 
-        public async Task<IActionResult> Index(int pageNumber = 1, int pageSize = 30)
+        public async Task<IActionResult> Index()
         {
-            var x = await _client.GetHackerNewsItems(HackerNewsEnums.StoryType.newstories, pageNumber, pageSize);
-
-            HomeViewModel vm = new HomeViewModel
-            {
-                HackerNewsItems = x,
-                PageSize = pageSize,
-                CurrentPage = pageNumber,
-            };
-
-            return View(vm);
+            
+            return View();
         }
 
         public async Task<IActionResult> Search(string searchTerms, int pageNumber = 1, int pageSize = 30)
@@ -52,9 +44,46 @@ namespace HackerNewsDemoClient.Controllers
             return View(vm);
         }
 
-        public IActionResult Privacy()
+        public async Task<IActionResult> NewStories(int pageNumber = 1, int pageSize = 30)
         {
-            return View();
+            var x = await _client.GetHackerNewsItems(HackerNewsEnums.StoryType.newstories, pageNumber, pageSize);
+
+            HomeViewModel vm = new HomeViewModel
+            {
+                HackerNewsItems = x,
+                PageSize = pageSize,
+                CurrentPage = pageNumber,
+            };
+
+            return View(vm);
+        }
+
+        public async Task<IActionResult> TopStories(int pageNumber = 1, int pageSize = 30)
+        {
+            var x = await _client.GetHackerNewsItems(HackerNewsEnums.StoryType.topstories, pageNumber, pageSize);
+
+            HomeViewModel vm = new HomeViewModel
+            {
+                HackerNewsItems = x,
+                PageSize = pageSize,
+                CurrentPage = pageNumber,
+            };
+
+            return View(vm);
+        }
+
+        public async Task<IActionResult> BestStories(int pageNumber = 1, int pageSize = 30)
+        {
+            var x = await _client.GetHackerNewsItems(HackerNewsEnums.StoryType.beststories, pageNumber, pageSize);
+
+            HomeViewModel vm = new HomeViewModel
+            {
+                HackerNewsItems = x,
+                PageSize = pageSize,
+                CurrentPage = pageNumber,
+            };
+
+            return View(vm);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

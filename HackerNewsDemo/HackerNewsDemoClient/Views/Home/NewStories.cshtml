@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewData["Title"] = "NewStories";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model HomeViewModel
+
+<div class="text-center">
+    <h1 class="display-4">New Stories</h1>
+</div>
+<div class="row">
+    <div class="container">
+        <a class="btn btn-primary" asp-controller="Home" asp-action="Search">Search in New Stories</a>
+    </div>
+</div>
+@if (Model != null)
+{
+    <div class="card p-2" id="hackerNewItemsSection">
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <tbody>
+                    @if (Model.HackerNewsItems.Count > 0)
+                    {
+                        @foreach (var item in Model.HackerNewsItems.OrderByDescending(x => x.Time).ToList())
+                        {
+
+
+                            @if (!string.IsNullOrEmpty(item.Url))
+                            {
+                                <tr id="@item.Id">
+                                    <td>
+                                        <a href="@item.Url" target="_self">@item.Title</a>
+                                        <br />
+                                        <small class="text-muted">@item.Score point by @item.By</small>
+                                    </td>
+                                </tr>
+                            }
+
+                        }
+
+                        <tr class="bg-secondary">
+                            <td class="d-grid gap-2 col-12 mx-auto">
+                            @Html.ActionLink("View More New Stories", "NewStories", "Home", new { pageNumber = Model.CurrentPage + 1 }, new { @id = "moreLink",  @class="btn btn-primary rounded" })</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td>No More Records</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+}
