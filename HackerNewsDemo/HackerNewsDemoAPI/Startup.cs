@@ -37,6 +37,7 @@ namespace HackerNewsDemoAPI
             services.AddApiVersioning(o => o.ApiVersionReader = new UrlSegmentApiVersionReader());
             services.AddHttpClient<HackerNewsClient>();
             services.TryAddScoped<IHackerNewsService, HackerNewsService>();
+            services.TryAddScoped<HackerNewsService>();
             services.AddAutoMapper(typeof(HackerNewsDemo.Module.MappingProfiles.AutoMapping));
             services.AddDbContext<HackerNewsDataContext>();
             services.AddHostedService<TimedHostedService>();

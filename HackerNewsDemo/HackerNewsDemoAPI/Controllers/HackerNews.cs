@@ -2,6 +2,7 @@
 using HackerNewsDemo.Module.Enums;
 using HackerNewsDemo.Module.Interfaces;
 using HackerNewsDemo.Module.Models;
+using HackerNewsDemo.Module.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -32,6 +33,9 @@ namespace HackerNewsDemoAPI.Controllers
         /// <summary>
         /// Get Hacker News Item
         /// </summary>
+        /// <remarks>
+        /// Will retrieve child item details if they exist
+        /// </remarks>
         /// <param name="id"></param>
         /// <returns>Hacker News Item Details</returns>
         [HttpGet("item/{id}")]
@@ -53,6 +57,19 @@ namespace HackerNewsDemoAPI.Controllers
             }
 
             return Ok(hackerNewsDTO);
+        }
+
+        /// <summary>
+        /// Get Hacker News Max Item
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Hacker News Item Details</returns>
+        [HttpGet("maxitem")]
+        [ResponseCache(Duration = 30, Location= ResponseCacheLocation.Any)]
+        public async Task<IActionResult> MaxItem([FromServices] HackerNewsService service)
+        {
+            var itemId = await _service.GetHackerNewsMaxItem();
+            return Ok(itemId);
         }
 
         /// <summary>
@@ -95,5 +112,7 @@ namespace HackerNewsDemoAPI.Controllers
                 return Ok(_mapper.Map<List<HackerNewsItemDTO>>(s));
            
         }
+
+
     }
 }
