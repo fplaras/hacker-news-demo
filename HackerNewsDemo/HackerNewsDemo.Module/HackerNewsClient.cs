@@ -12,6 +12,9 @@ using HttpResponseException = HackerNewsDemo.Module.Models.HttpResponseException
 
 namespace HackerNewsDemo.Module
 {
+    /// <summary>
+    /// Hacker News Client for API request to Hacker News API
+    /// </summary>
     public class HackerNewsClient
     {
         public HttpClient Client { get; }

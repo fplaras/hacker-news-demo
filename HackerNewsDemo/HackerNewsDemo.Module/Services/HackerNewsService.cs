@@ -153,7 +153,7 @@ namespace HackerNewsDemo.Module.Services
                 List<HackerNewsItemDomain> filteredItemsText =
                     await _context.HackerNewsItem.Where(x => x.Text != null).ToListAsync();
 
-                var filteredItemsTextResults = filteredItemsText.Where(x => keyword.Any(term => x.Text.Contains(term))).ToList();                    
+                var filteredItemsTextResults = filteredItemsText.Where(x => keyword.Any(term => x.Text.Contains(term, StringComparison.CurrentCultureIgnoreCase))).ToList();                    
 
                 List<HackerNewsItemDomain> filteredItemTitles =
                     await _context.HackerNewsItem.Where(x => x.Title != null).ToListAsync();
@@ -198,12 +198,12 @@ namespace HackerNewsDemo.Module.Services
                 List<HackerNewsItemDomain> filteredItemsText =
                     await _context.HackerNewsItem.Where(x => x.Text != null).ToListAsync();
 
-                var filteredItemsTextResults = filteredItemsText.Where(x => keyword.Any(term => x.Text.Contains(term, StringComparison.OrdinalIgnoreCase))).ToList();
+                var filteredItemsTextResults = filteredItemsText.Where(x => keyword.Any(term => x.Text.Contains(term, StringComparison.CurrentCultureIgnoreCase))).ToList();
 
                 List<HackerNewsItemDomain> filteredItemTitles =
                     await _context.HackerNewsItem.Where(x => x.Title != null).ToListAsync();
 
-                var filteredItemsTitlesResults = filteredItemTitles.Where(x => keyword.Any(term => x.Title.Contains(term, StringComparison.OrdinalIgnoreCase))).ToList();
+                var filteredItemsTitlesResults = filteredItemTitles.Where(x => keyword.Any(term => x.Title.Contains(term, StringComparison.CurrentCultureIgnoreCase))).ToList();
 
                 foreach (var item in filteredItemsTextResults)
                 {
