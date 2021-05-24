@@ -38,8 +38,6 @@ Client is currently developed as a server side app using ASP.Net Core. There are
 I am new to the Hacker News API but I found that the updates to a Title in an item do not reflect in the endpoint in the API for updates so I believe the "updates" endpoint might be also be cached. The application code originally used that endpoint to simply update those records at a 30 second interval but considering it is not working as expected  all records for a "newstories" are currently updated every 30 seconds. Hey it works.
 
 ### Issues
-Concurrency conflicts with db inserts in the retrieval of items while the background service is running. I found some strategies in EF to handle this but need further R&D.
-Potentially I might be leading to a different strategy like inMemoryCaching or Redis.
 
 ## What's next?
 Continue exploring backend strategies for caching and performance, creating different clients using JS libraries and Blazor, better exception handling.
