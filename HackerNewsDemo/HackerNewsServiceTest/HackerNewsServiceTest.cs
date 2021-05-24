@@ -3,6 +3,7 @@ using HackerNewsDemo.Module;
 using HackerNewsDemo.Module.Domain;
 using HackerNewsDemo.Module.Enums;
 using HackerNewsDemo.Module.Interfaces;
+using HackerNewsDemo.Module.MappingProfiles;
 using HackerNewsDemo.Module.Services;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -22,6 +23,7 @@ namespace HackerNewsServiceTest
 
         public HackerNewsServiceTest()
         {
+            _mapper = new MapperConfiguration(cfg => cfg.AddProfile<AutoMapping>()).CreateMapper();
             var builder = new DbContextOptionsBuilder<HackerNewsDataContext>()
              .UseInMemoryDatabase("TestDB");
             _context = new HackerNewsDataContext(builder.Options);
