@@ -32,13 +32,14 @@ There are 3 API models implemented. One is used to map to the json retrieved fro
 The current unit test demonstrates testing of some service methods and can be expanded to do more including doing controller layer testing.
 
 ### Client
-Client is currently developed as a server side app using ASP.Net Core. There are many JS libraries to handle paging, sorting, filtering and searching but I implemented an API based search to provide records that were not original retrieved in the original newstories request.  
+Client is currently developed as a server side app using ASP.Net Core. There are many JS libraries to handle paging, sorting, filtering and searching of data on the client but instead I implemented an API enpoint to search through records that were not originally retrieved.  
 
 ## Findings
-I am new to the Hacker News API but I found that the updates to a Title in an item do not reflect in the endpoint in the API for updates so I believe the "updates" endpoint might be also be cached. The application code originally used that endpoint to simply update those records at a 30 second interval but considering it is not working as expected  all records for a "newstories" are currently updated every 30 seconds. Hey it works.
+I am new to the Hacker News API but I found that the updates to a Title in an item do not reflect in the endpoint that the Hacker News API has for updates so I believe the "updates" endpoint might be also be cached or the frequency of udpates is not realtime. The application code originally used that endpoint to simply update those records at a 30 second interval but considering it is not working as expected  all records for "newstories" are currently updated every 30 seconds. It is working that way for now. 
 
 ### Issues
+Feel free to report issues and observations for potential improvement or if there is an alternate approach to the task and I will explore it.
 
 ## What's next?
-Continue exploring backend strategies for caching and performance, creating different clients using JS libraries and Blazor, better exception handling.
+Continue exploring backend strategies for caching and performance, creating different clients using JS libraries or Blazor, improve use experience with better exception handling and communication of application performance.
 
